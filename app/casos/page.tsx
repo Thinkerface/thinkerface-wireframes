@@ -30,6 +30,7 @@ const featured = {
     { value: "-45%", label: "Tiempo de resolución" },
     { value: "+22%", label: "Retención" },
   ],
+  image: "https://picsum.photos/seed/aura-bank/900/700",
 };
 
 const cases = [
@@ -40,6 +41,9 @@ const cases = [
     description: "Rediseñamos el recorrido de pacientes para reducir la ansiedad antes de cada cita.",
     impactValue: "+40%",
     impactLabel: "satisfacción de pacientes",
+    // Imagen de referencia web (no es la foto real del cliente) — reemplazar
+    // cuando exista fotografía propia del proyecto.
+    image: "https://picsum.photos/seed/vitalis-salud/800/600",
   },
   {
     slug: "nortem-retail",
@@ -48,6 +52,7 @@ const cases = [
     description: "Conectamos la experiencia física y digital en más de 60 tiendas.",
     impactValue: "+18%",
     impactLabel: "ticket promedio",
+    image: "https://picsum.photos/seed/nortem-retail/800/600",
   },
   {
     slug: "confia-seguros",
@@ -56,6 +61,7 @@ const cases = [
     description: "Simplificamos el proceso de reclamos más temido por los usuarios.",
     impactValue: "-55%",
     impactLabel: "tiempo de reclamo",
+    image: "https://picsum.photos/seed/confia-seguros/800/600",
   },
   {
     slug: "andes-university",
@@ -64,6 +70,7 @@ const cases = [
     description: "Diseñamos la experiencia de bienvenida para nuevos estudiantes.",
     impactValue: "+30%",
     impactLabel: "engagement",
+    image: "https://picsum.photos/seed/andes-university/800/600",
   },
   {
     slug: "lumina-tech",
@@ -72,6 +79,7 @@ const cases = [
     description: "Transformamos un producto B2B complejo en una experiencia intuitiva.",
     impactValue: "+25%",
     impactLabel: "adopción",
+    image: "https://picsum.photos/seed/lumina-tech/800/600",
   },
 ];
 
@@ -81,18 +89,18 @@ export default function CasosPage() {
       <Header />
 
       {/* ===================== PAGE HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#EFEDFA] py-[88px] pb-16 text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#FFF3FA] py-[88px] pb-16 text-center">
         <div className="pointer-events-none absolute -right-36 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_70%)]" />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
 
         <div className="relative z-10 mx-auto max-w-[680px] px-8">
           <span className="mb-[18px] block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
             Nuestro trabajo
           </span>
-          <h1 className="mb-4 text-[30px] font-extrabold leading-[1.2] tracking-tight text-navy sm:text-[38px] lg:text-[46px]">
+          <h1 className="mb-4 text-h1 text-navy">
             Casos de éxito
           </h1>
-          <p className="mx-auto max-w-[540px] text-[17px] leading-relaxed text-navy-soft">
+          <p className="mx-auto max-w-[540px] text-body2 text-navy-soft">
             El reto, la experiencia que diseñamos, el impacto que generó y lo que aprendimos en cada proyecto.
           </p>
         </div>
@@ -108,7 +116,7 @@ export default function CasosPage() {
         si al integrar se ve un salto.
       */}
       <div className="sticky top-[72px] z-40 border-b border-border bg-white py-5">
-        <div className="mx-auto flex max-w-container flex-wrap justify-center gap-2.5 px-8">
+        <div className="mx-auto flex max-w-container flex-wrap justify-center gap-2.5 px-8 lg:px-20">
           {filters.map((filter, index) => (
             <span
               key={filter}
@@ -126,13 +134,19 @@ export default function CasosPage() {
 
       {/* ===================== CASO DESTACADO + GRID ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <Link
             href={`/casos/${featured.slug}`}
             className="group mb-16 grid overflow-hidden rounded-[24px] border border-border bg-white transition-shadow duration-200 hover:shadow-[0_30px_60px_-30px_rgba(16,27,61,0.22)] lg:grid-cols-[1.1fr_1fr]"
           >
-            <div className="relative min-h-[220px] bg-gradient-to-br from-lavender-deep to-navy-soft lg:min-h-[340px]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,.3),transparent_45%)]" />
+            <div className="relative min-h-[220px] overflow-hidden bg-gradient-to-br from-lavender-deep to-navy-soft lg:min-h-[340px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={featured.image}
+                alt={`${featured.client} — ${featured.category}`}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent" />
               <span className="absolute left-6 top-6 z-10 rounded-pill bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-wide text-navy">
                 Caso destacado
               </span>
@@ -142,7 +156,7 @@ export default function CasosPage() {
               <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
                 {featured.category}
               </span>
-              <h3 className="mb-3.5 text-2xl font-extrabold text-navy">{featured.client}</h3>
+              <h3 className="mb-3.5 text-h4 text-navy">{featured.client}</h3>
               <p className="mb-6 text-[15.5px] leading-relaxed text-muted">{featured.description}</p>
 
               <div className="mb-7 flex flex-wrap gap-7">
@@ -170,7 +184,7 @@ export default function CasosPage() {
               <Card
                 key={item.slug}
                 href={`/casos/${item.slug}`}
-                image={{ alt: `${item.client} — ${item.industry}` }}
+                image={{ src: item.image, alt: `${item.client} — ${item.industry}` }}
                 tag={item.industry}
                 title={item.client}
                 description={item.description}
@@ -198,10 +212,10 @@ export default function CasosPage() {
 
       {/* ===================== CTA FINAL ===================== */}
       <section className="pb-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-navy to-navy-light px-8 py-16 text-center sm:px-12 lg:py-20">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
-            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-[26px] font-extrabold leading-snug text-white sm:text-[32px] lg:text-[40px]">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
+            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-h2 text-white">
               ¿Quieres ser el próximo <span className="text-lavender-2">caso de éxito?</span>
             </h2>
             <p className="relative z-10 mx-auto mb-9 max-w-[480px] text-[16.5px] text-white/70">

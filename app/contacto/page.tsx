@@ -76,29 +76,35 @@ export default function ContactoPage() {
       <Header />
 
       {/* ===================== PAGE HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#EFEDFA] py-[88px] text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#FFF3FA] py-[88px] text-center">
         <div className="pointer-events-none absolute -right-36 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_70%)]" />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
 
         <div className="relative z-10 mx-auto max-w-[640px] px-8">
           <span className="mb-[18px] block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
             Contacto
           </span>
-          <h1 className="mb-4 text-[30px] font-extrabold leading-[1.2] tracking-tight text-navy sm:text-[38px] lg:text-[46px]">
+          <h1 className="mb-4 text-h1 text-navy">
             Todo comienza con una decisión.
           </h1>
-          <p className="text-[17px] leading-relaxed text-navy-soft">Cuéntanos qué experiencia quieres crear.</p>
+          <p className="text-body2 text-navy-soft">Cuéntanos qué experiencia quieres crear.</p>
         </div>
       </section>
 
       {/* ===================== FORMULARIO + INFO ===================== */}
       <section className="py-24">
-        <div className="mx-auto grid max-w-container gap-12 px-8 lg:grid-cols-[1.3fr_1fr] lg:items-start">
+        <div className="mx-auto grid max-w-container gap-12 px-8 lg:px-20 lg:grid-cols-[1.3fr_1fr] lg:items-start">
           <ContactForm />
 
           <div>
-            <div className="relative mb-7 flex h-[200px] items-center justify-center overflow-hidden rounded-[18px] bg-gradient-to-br from-navy-soft to-navy">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(143,134,217,.4),transparent_45%)]" />
+            <div className="relative mb-7 flex h-[200px] items-center justify-center overflow-hidden rounded-[18px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://picsum.photos/seed/thinkerface-bogota/700/400"
+                alt="Bogotá, Colombia"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-navy/55" />
               <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/[0.16]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-[22px] w-[22px]">
                   <path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21z" />
@@ -167,12 +173,12 @@ export default function ContactoPage() {
 
       {/* ===================== QUÉ PASA DESPUÉS ===================== */}
       <section className="bg-graybg py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-14 max-w-[640px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Qué pasa después
             </span>
-            <h2 className="text-[26px] font-extrabold text-navy sm:text-[30px] lg:text-[32px]">
+            <h2 className="text-h2 text-navy">
               De tu mensaje a la primera conversación
             </h2>
           </div>
@@ -183,8 +189,8 @@ export default function ContactoPage() {
                 <span className="mb-[18px] flex h-8 w-8 items-center justify-center rounded-full bg-navy text-[13px] font-extrabold text-white">
                   {item.step}
                 </span>
-                <h3 className="mb-2 text-[16.5px] font-extrabold text-navy">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-muted">{item.description}</p>
+                <h3 className="mb-2 text-h6 text-navy">{item.title}</h3>
+                <p className="text-body3 text-muted">{item.description}</p>
               </div>
             ))}
           </div>

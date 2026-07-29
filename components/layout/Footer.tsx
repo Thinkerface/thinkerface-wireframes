@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { mainNav } from "@/data/navigation";
 
@@ -42,12 +43,10 @@ export default function Footer() {
 
   return (
     <footer className="bg-navy pt-16 text-white/70">
-      <div className="mx-auto max-w-container px-8">
+      <div className="mx-auto max-w-container px-8 lg:px-20">
         <div className="grid gap-12 pb-14 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>
-            <div className="mb-3.5 text-[21px] font-extrabold text-white">
-              Thinker<span className="text-lavender-2">face</span>
-            </div>
+            <Image src="/logo-white.png" alt="Thinkerface" width={1662} height={234} className="mb-3.5 h-7 w-auto" />
             <p className="mb-6 max-w-[300px] text-[14.5px] leading-relaxed text-white/60">
               Convertimos el Brand Storytelling en experiencias que las personas viven, recuerdan y comparten.
             </p>

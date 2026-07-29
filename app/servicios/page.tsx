@@ -93,18 +93,18 @@ export default function ServiciosPage() {
       <Header />
 
       {/* ===================== PAGE HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#EFEDFA] py-[88px] text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#FFF3FA] py-[88px] text-center">
         <div className="pointer-events-none absolute -right-36 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_70%)]" />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
 
         <div className="relative z-10 mx-auto max-w-[680px] px-8">
           <span className="mb-[18px] block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
             Qué hacemos
           </span>
-          <h1 className="mb-4 text-[30px] font-extrabold leading-[1.2] tracking-tight text-navy sm:text-[38px] lg:text-[46px]">
+          <h1 className="mb-4 text-h1 text-navy">
             Nuestros servicios
           </h1>
-          <p className="mx-auto max-w-[540px] text-[17px] leading-relaxed text-navy-soft">
+          <p className="mx-auto max-w-[540px] text-body2 text-navy-soft">
             Cada servicio explicado desde <strong className="text-navy">la experiencia</strong>, no desde la
             disciplina.
           </p>
@@ -113,7 +113,7 @@ export default function ServiciosPage() {
 
       {/* ===================== GRID DE SERVICIOS ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="grid gap-6 lg:grid-cols-2">
             {services.map((service) => (
               <Card
@@ -152,11 +152,11 @@ export default function ServiciosPage() {
 
       {/* ===================== BANDA METODOLOGÍA ===================== */}
       <section className="bg-graybg py-24 text-center">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
             Cómo se activan
           </span>
-          <h2 className="mb-[30px] text-[22px] font-extrabold text-navy sm:text-[26px] lg:text-[30px]">
+          <h2 className="mb-[30px] text-h2 text-navy">
             Todos nuestros servicios viven dentro de una misma metodología
           </h2>
           <div className="mb-7 flex flex-wrap items-center justify-center gap-3.5">
@@ -180,10 +180,10 @@ export default function ServiciosPage() {
 
       {/* ===================== CTA FINAL ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-navy to-navy-light px-8 py-16 text-center sm:px-12 lg:py-20">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
-            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-[26px] font-extrabold leading-snug text-white sm:text-[32px] lg:text-[40px]">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
+            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-h2 text-white">
               ¿Aún no sabes qué servicio necesitas?{" "}
               <span className="text-lavender-2">Empecemos por conversarlo.</span>
             </h2>

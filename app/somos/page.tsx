@@ -100,15 +100,15 @@ export default function SomosPage() {
       <Header />
 
       {/* ===================== PAGE HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#EFEDFA] py-[88px]">
+      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#FFF3FA] py-[88px]">
         <div className="pointer-events-none absolute -right-36 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_70%)]" />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
 
         <div className="relative z-10 mx-auto max-w-[760px] px-8">
           <span className="mb-[18px] block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
             Quiénes somos
           </span>
-          <h1 className="mb-5 text-[30px] font-extrabold leading-[1.2] tracking-tight text-navy sm:text-[38px] lg:text-[46px]">
+          <h1 className="mb-5 text-h1 text-navy">
             Somos una consultora creada para diseñar las experiencias que definen el futuro de las marcas.
           </h1>
           <p className="max-w-[600px] text-lg font-bold leading-relaxed text-navy">No diseñamos únicamente interfaces.</p>
@@ -118,9 +118,15 @@ export default function SomosPage() {
 
       {/* ===================== NUESTRA HISTORIA ===================== */}
       <section className="py-24">
-        <div className="mx-auto grid max-w-container gap-14 px-8 lg:grid-cols-2 lg:items-center lg:gap-[72px]">
-          <div className="relative order-first h-[280px] overflow-hidden rounded-[24px] bg-gradient-to-br from-navy-soft to-navy lg:order-none lg:h-[420px]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,.35),transparent_45%)]" />
+        <div className="mx-auto grid max-w-container gap-14 px-8 lg:px-20 lg:grid-cols-2 lg:items-center lg:gap-[72px]">
+          <div className="relative order-first h-[280px] overflow-hidden rounded-[24px] lg:order-none lg:h-[420px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://picsum.photos/seed/thinkerface-historia/800/640"
+              alt="Origen de Thinkerface"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-navy/45" />
             <div className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/25">
               <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
                 <path d="M12 2 3 7v10l9 5 9-5V7l-9-5z" />
@@ -132,15 +138,15 @@ export default function SomosPage() {
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Nuestra historia
             </span>
-            <h2 className="mb-[18px] text-[26px] font-extrabold leading-snug text-navy sm:text-[30px] lg:text-[34px]">
+            <h2 className="mb-[18px] text-h2 text-navy">
               El origen de THINK + INTERFACE
             </h2>
-            <p className="mb-[18px] text-[16.5px] leading-relaxed text-muted">
+            <p className="mb-[18px] text-body3 text-muted">
               Thinkerface nace en 2003 de la unión de dos formas de pensar: THINK, la disciplina de entender
               profundamente una marca — su propósito, su negocio, su narrativa — e INTERFACE, la disciplina de
               diseñar cada punto en el que esa marca se encuentra con una persona.
             </p>
-            <p className="text-[16.5px] leading-relaxed text-muted">
+            <p className="text-body3 text-muted">
               Durante más de 20 años hemos evolucionado junto con la forma en que las personas viven las marcas: de
               las interfaces digitales a las experiencias completas. Hoy seguimos creyendo lo mismo que el primer
               día: pensar profundo y diseñar con cuidado es la única forma de construir relaciones que duran.
@@ -151,7 +157,7 @@ export default function SomosPage() {
 
       {/* ===================== NUESTRO MANIFIESTO ===================== */}
       <section className="bg-gradient-to-br from-navy to-navy-light py-24 text-center text-white">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <span className="mb-7 block text-xs font-bold uppercase tracking-[0.12em] text-lavender-2">
             Nuestro manifiesto
           </span>
@@ -171,12 +177,12 @@ export default function SomosPage() {
 
       {/* ===================== EN QUÉ CREEMOS ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-14 max-w-[680px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               En qué creemos
             </span>
-            <h2 className="text-[26px] font-extrabold text-navy sm:text-[32px] lg:text-[36px]">
+            <h2 className="text-h2 text-navy">
               Los principios detrás de cada decisión
             </h2>
           </div>
@@ -191,12 +197,12 @@ export default function SomosPage() {
 
       {/* ===================== NUESTROS PRINCIPIOS ===================== */}
       <section className="bg-graybg py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-14 max-w-[680px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Cómo trabajamos
             </span>
-            <h2 className="text-[26px] font-extrabold text-navy sm:text-[32px] lg:text-[36px]">
+            <h2 className="text-h2 text-navy">
               Nuestros principios
             </h2>
           </div>
@@ -217,10 +223,10 @@ export default function SomosPage() {
 
       {/* ===================== CTA FINAL ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-navy to-navy-light px-8 py-16 text-center sm:px-12 lg:py-20">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
-            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-[26px] font-extrabold leading-snug text-white sm:text-[32px] lg:text-[40px]">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
+            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-h2 text-white">
               Así pensamos. <span className="text-lavender-2">Así diseñamos.</span>
             </h2>
             <p className="relative z-10 mx-auto mb-9 max-w-[480px] text-[16.5px] text-white/70">

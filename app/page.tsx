@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import RotatingWord from "@/components/ui/RotatingWord";
 
 export const metadata: Metadata = {
   title: "Thinkerface — Diseñamos experiencias que las personas viven, recuerdan y comparten",
@@ -135,7 +136,7 @@ function MethodCard({ step, title, items }: { step: string; title: string; items
   return (
     <div className="rounded-card border border-white/15 bg-white/[0.06] p-8">
       <span className="mb-3.5 block text-xs font-extrabold tracking-[0.14em] text-lavender-2">{step}</span>
-      <h3 className="mb-3.5 text-[19px] font-bold text-white">{title}</h3>
+      <h3 className="mb-3.5 text-h5 text-white">{title}</h3>
       <ul className="space-y-2">
         {items.map((item) => (
           <li key={item} className="relative pl-4 text-[14.5px] leading-[1.9] text-white/70">
@@ -154,17 +155,17 @@ export default function HomePage() {
       <Header />
 
       {/* ===================== HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#EFEDFA] pb-[110px] pt-24">
+      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#FFF3FA] pb-[110px] pt-24">
         <div className="pointer-events-none absolute -right-36 -top-32 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_70%)]" />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
 
-        <div className="relative z-10 mx-auto grid max-w-container gap-16 px-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="relative z-10 mx-auto grid max-w-container gap-16 px-8 lg:px-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <span className="mb-[18px] block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Brand storytelling · customer experience
             </span>
-            <h1 className="mb-[22px] text-[34px] font-extrabold leading-[1.14] tracking-tight text-navy sm:text-[42px] lg:text-[54px]">
-              Diseñamos experiencias que las personas viven, recuerdan y comparten.
+            <h1 className="mb-[22px] text-h1 text-navy">
+              Diseñamos experiencias que las personas <RotatingWord />.
             </h1>
             <p className="mb-3.5 max-w-[520px] text-lg leading-relaxed text-navy-soft">
               Transformamos el Brand Storytelling en experiencias que conectan personas, emociones y negocios.
@@ -183,7 +184,45 @@ export default function HomePage() {
           </div>
 
           <div className="relative h-[280px] lg:h-[420px]">
-            <div className="absolute inset-0 rounded-[40%_60%_60%_40%] bg-gradient-to-br from-lavender-deep to-navy-soft shadow-[0_30px_60px_-20px_rgba(16,27,61,0.35)]" />
+            {/* Antes era un blob orgánico de gradiente sin significado. Este
+                diagrama de nodos conectados es el lenguaje gráfico real del
+                manual (página "Brand System" · Linked Decision / Decision
+                Flow): cada punto es una decisión, la línea es el camino que
+                las conecta — literalmente Think → Interface → Experience. */}
+            <div className="absolute inset-0 overflow-hidden rounded-[32px] bg-gradient-to-br from-lavender-deep to-navy-soft shadow-[0_30px_60px_-20px_rgba(16,27,61,0.35)]">
+              <svg viewBox="0 0 400 420" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true">
+                <path
+                  d="M60 350 C 110 270, 90 190, 175 155 S 300 125, 330 55"
+                  stroke="#fff"
+                  strokeOpacity="0.3"
+                  strokeWidth="2"
+                  strokeDasharray="1 12"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M60 350 C 110 270, 90 190, 175 155 S 300 125, 330 55"
+                  stroke="#fff"
+                  strokeOpacity="0.85"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <circle cx="60" cy="350" r="20" fill="#fff" fillOpacity="0.18" />
+                <circle cx="60" cy="350" r="8" fill="#fff" />
+                <circle cx="175" cy="155" r="20" fill="#fff" fillOpacity="0.18" />
+                <circle cx="175" cy="155" r="8" fill="#fff" />
+                <circle cx="330" cy="55" r="20" fill="#fff" fillOpacity="0.18" />
+                <circle cx="330" cy="55" r="8" fill="#fff" />
+              </svg>
+              <span className="absolute left-[9%] bottom-[10%] text-[11px] font-bold uppercase tracking-[0.1em] text-white/80">
+                Think
+              </span>
+              <span className="absolute left-[40%] top-[32%] text-[11px] font-bold uppercase tracking-[0.1em] text-white/80">
+                Interface
+              </span>
+              <span className="absolute right-[7%] top-[6%] text-[11px] font-bold uppercase tracking-[0.1em] text-white/80">
+                Experience
+              </span>
+            </div>
             <div className="absolute left-[4%] top-[10%] flex items-center gap-2.5 rounded-2xl bg-white px-[18px] py-3.5 text-[13px] font-semibold text-navy shadow-[0_20px_40px_-14px_rgba(16,27,61,0.25)] sm:left-[-6%]">
               <span className="h-2 w-2 shrink-0 rounded-full bg-lavender-deep" />
               Think → Interface → Experience
@@ -198,12 +237,12 @@ export default function HomePage() {
 
       {/* ===================== SECCIÓN 2 · CREENCIA ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-11 max-w-[760px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Por qué importa
             </span>
-            <h2 className="mb-[18px] text-[28px] font-extrabold leading-snug text-navy sm:text-[32px] lg:text-[36px]">
+            <h2 className="mb-[18px] text-h2 text-navy">
               Hoy las marcas ya no compiten por productos. Compiten por experiencias.
             </h2>
             <p className="text-[17px] leading-relaxed text-muted">
@@ -231,9 +270,9 @@ export default function HomePage() {
 
       {/* ===================== SECCIÓN 3 · QUOTE ===================== */}
       <section className="bg-graybg py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto max-w-[760px] text-center">
-            <h2 className="mb-5 text-[26px] font-extrabold leading-snug text-navy sm:text-[32px] lg:text-[36px]">
+            <h2 className="mb-5 text-h2 text-navy">
               Las personas no comparten publicidad. Comparten sus experiencias.
             </h2>
             <p className="mx-auto max-w-[560px] text-[17px] leading-relaxed text-muted">
@@ -246,9 +285,15 @@ export default function HomePage() {
 
       {/* ===================== SECCIÓN 4 · SOMOS THINKERFACE ===================== */}
       <section className="py-24">
-        <div className="mx-auto grid max-w-container gap-14 px-8 lg:grid-cols-2 lg:items-center lg:gap-[72px]">
-          <div className="relative order-first h-[280px] overflow-hidden rounded-[24px] bg-gradient-to-br from-lavender-1 to-lavender-deep lg:order-none lg:h-[420px]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,.35),transparent_45%)]" />
+        <div className="mx-auto grid max-w-container gap-14 px-8 lg:px-20 lg:grid-cols-2 lg:items-center lg:gap-[72px]">
+          <div className="relative order-first h-[280px] overflow-hidden rounded-[24px] lg:order-none lg:h-[420px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://picsum.photos/seed/thinkerface-team/800/640"
+              alt="Equipo de Thinkerface"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-lavender-deep/40 to-navy/30" />
             <div className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/25">
               <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
                 <path d="M3 12h4l3 8 4-16 3 8h4" />
@@ -259,15 +304,15 @@ export default function HomePage() {
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Quiénes somos
             </span>
-            <h2 className="mb-[18px] text-[26px] font-extrabold leading-snug text-navy sm:text-[30px] lg:text-[34px]">
+            <h2 className="mb-[18px] text-h2 text-navy">
               Somos Thinkerface
             </h2>
-            <p className="mb-5 text-[16.5px] leading-relaxed text-muted">
+            <p className="mb-5 text-body3 text-muted">
               Somos una consultora estratégica especializada en diseñar experiencias de cliente. Ayudamos a
               convertir las historias de marca en experiencias reales que las personas puedan vivir, sentir y
               compartir.
             </p>
-            <p className="mb-7 text-[16.5px] leading-relaxed text-muted">
+            <p className="mb-7 text-body3 text-muted">
               Unimos estrategia, diseño, investigación y tecnología para construir relaciones más humanas entre las
               marcas y las personas.
             </p>
@@ -280,12 +325,12 @@ export default function HomePage() {
 
       {/* ===================== SECCIÓN 5-6 · METODOLOGÍA ===================== */}
       <section id="metodologia" className="bg-gradient-to-br from-navy to-navy-light py-24 text-white">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-14 max-w-[680px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-lavender-2">
               Nuestra metodología
             </span>
-            <h2 className="mb-4 text-[26px] font-extrabold leading-snug sm:text-[32px] lg:text-[36px]">
+            <h2 className="mb-4 text-h2 text-navy">
               Todo comienza con una decisión.
             </h2>
             <p className="text-[17px] leading-relaxed text-white/65">THINK → INTERFACE → EXPERIENCE</p>
@@ -338,12 +383,12 @@ export default function HomePage() {
 
       {/* ===================== SECCIÓN 7 · SERVICIOS ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-14 max-w-[680px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Qué hacemos
             </span>
-            <h2 className="text-[26px] font-extrabold text-navy sm:text-[32px] lg:text-[36px]">
+            <h2 className="text-h2 text-navy">
               Nuestros servicios
             </h2>
           </div>
@@ -364,7 +409,7 @@ export default function HomePage() {
 
       {/* ===================== SECCIÓN 8 · 23 AÑOS ===================== */}
       <section className="bg-graybg py-24">
-        <div className="mx-auto grid max-w-container gap-14 px-8 lg:grid-cols-[0.9fr_1.6fr] lg:items-center">
+        <div className="mx-auto grid max-w-container gap-14 px-8 lg:px-20 lg:grid-cols-[0.9fr_1.6fr] lg:items-center">
           <div>
             <div className="text-[48px] font-extrabold leading-none text-navy sm:text-[56px] lg:text-[72px]">
               23<span className="text-lavender-deep">+</span>
@@ -386,12 +431,12 @@ export default function HomePage() {
 
       {/* ===================== SECCIÓN 9 + CTA FINAL ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-2 max-w-[680px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               Lo que nos mueve
             </span>
-            <h2 className="mb-4 text-[26px] font-extrabold text-navy sm:text-[32px] lg:text-[36px]">
+            <h2 className="mb-4 text-h2 text-navy">
               Diseñamos experiencias que conectan
             </h2>
             <p className="text-[17px] leading-relaxed text-muted">
@@ -410,8 +455,8 @@ export default function HomePage() {
           </div>
 
           <div className="relative mt-16 overflow-hidden rounded-[28px] bg-gradient-to-br from-navy to-navy-light px-8 py-16 text-center sm:px-12 lg:py-20">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
-            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-[26px] font-extrabold leading-snug text-white sm:text-[32px] lg:text-[40px]">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
+            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-h2 text-white">
               La mejor historia de una marca no es la que cuenta.{" "}
               <span className="text-lavender-2">Es la que las personas deciden vivir.</span>
             </h2>

@@ -27,6 +27,7 @@ const stages = [
     dark: false,
     reverse: false,
     bg: "",
+    image: "https://picsum.photos/seed/thinkerface-think/700/560",
   },
   {
     num: "02",
@@ -45,6 +46,7 @@ const stages = [
     dark: true,
     reverse: true,
     bg: "bg-graybg",
+    image: "https://picsum.photos/seed/thinkerface-interface/700/560",
   },
   {
     num: "03",
@@ -58,6 +60,7 @@ const stages = [
     dark: false,
     reverse: false,
     bg: "",
+    image: "https://picsum.photos/seed/thinkerface-experience/700/560",
   },
 ];
 
@@ -78,6 +81,7 @@ function Stage({
   dark,
   reverse,
   bg,
+  image,
 }: {
   num: string;
   label: string;
@@ -89,20 +93,28 @@ function Stage({
   dark: boolean;
   reverse: boolean;
   bg: string;
+  image: string;
 }) {
   return (
     <section className={bg}>
-      <div className="mx-auto grid max-w-container gap-14 px-8 py-24 lg:grid-cols-2 lg:items-center lg:gap-[72px]">
+      <div className="mx-auto grid max-w-container gap-14 px-8 lg:px-20 py-24 lg:grid-cols-2 lg:items-center lg:gap-[72px]">
         <div
           className={`relative order-first h-[240px] overflow-hidden rounded-[24px] lg:h-[380px] ${
-            dark ? "bg-gradient-to-br from-navy-soft to-navy" : "bg-gradient-to-br from-lavender-1 to-lavender-deep"
-          } ${reverse ? "lg:order-2" : "lg:order-none"}`}
+            reverse ? "lg:order-2" : "lg:order-none"
+          }`}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,.35),transparent_45%)]" />
-          <span
-            className={`absolute -bottom-3 right-4 text-[90px] font-extrabold leading-none sm:text-[140px] ${
-              dark ? "text-white/[0.18]" : "text-white/30"
+          {/* Imagen de referencia web — reemplazar por fotografía/gráfico 3D
+              real de marca (ver estilo "Photo Style" / "3D Graphics" del
+              manual) cuando esté disponible. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={image} alt={`${label} — ${title}`} className="absolute inset-0 h-full w-full object-cover" />
+          <div
+            className={`absolute inset-0 ${
+              dark ? "bg-navy/55" : "bg-gradient-to-br from-lavender-deep/50 to-navy/20"
             }`}
+          />
+          <span
+            className={`absolute -bottom-3 right-4 text-[90px] font-extrabold leading-none text-white/25 sm:text-[140px]`}
           >
             {num}
           </span>
@@ -117,13 +129,13 @@ function Stage({
           <span className="mb-[18px] inline-block rounded-pill bg-lavender-1 px-4 py-1.5 text-[13px] font-extrabold tracking-[0.14em] text-lavender-deep">
             {num} · {label}
           </span>
-          <h2 className="mb-2 text-[26px] font-extrabold leading-snug text-navy sm:text-[30px] lg:text-[34px]">
+          <h2 className="mb-2 text-h2 text-navy">
             {title}
           </h2>
           <span className="mb-[18px] block text-[15px] font-bold uppercase tracking-[0.06em] text-navy-soft">
             {tagline}
           </span>
-          <p className="mb-6 text-[16.5px] leading-relaxed text-muted">{description}</p>
+          <p className="mb-6 text-body3 text-muted">{description}</p>
           <div className="flex flex-wrap gap-2.5">
             {tags.map((tag) => (
               <span
@@ -143,7 +155,7 @@ function Stage({
 /** Conector vertical entre etapas — solo decorativo, sin contenido. */
 function Connector() {
   return (
-    <div className="mx-auto flex max-w-container flex-col items-center gap-1.5 px-8 py-2" aria-hidden="true">
+    <div className="mx-auto flex max-w-container flex-col items-center gap-1.5 px-8 lg:px-20 py-2" aria-hidden="true">
       <span className="h-9 w-[1.5px] bg-border" />
       <span className="flex h-[34px] w-[34px] items-center justify-center rounded-full border-[1.5px] border-lavender-deep text-base font-bold text-lavender-deep">
         ↓
@@ -159,18 +171,18 @@ export default function MetodologiaPage() {
       <Header />
 
       {/* ===================== PAGE HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#EFEDFA] py-[88px] text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#FFF3FA] py-[88px] text-center">
         <div className="pointer-events-none absolute -right-36 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_70%)]" />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
 
         <div className="relative z-10 mx-auto max-w-[720px] px-8">
           <span className="mb-[18px] block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
             Nuestra metodología
           </span>
-          <h1 className="mb-[22px] text-[30px] font-extrabold leading-[1.2] tracking-tight text-navy sm:text-[38px] lg:text-[46px]">
+          <h1 className="mb-[22px] text-h1 text-navy">
             Todo comienza con una decisión.
           </h1>
-          <p className="mx-auto mb-8 max-w-[560px] text-[17px] leading-relaxed text-navy-soft">
+          <p className="mx-auto mb-8 max-w-[560px] text-body2 text-navy-soft">
             Tres etapas que conectan la estrategia de marca con la experiencia que las personas realmente viven.
           </p>
 
@@ -199,10 +211,10 @@ export default function MetodologiaPage() {
 
       {/* ===================== CTA FINAL ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-navy to-navy-light px-8 py-16 text-center sm:px-12 lg:py-20">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
-            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-[26px] font-extrabold leading-snug text-white sm:text-[32px] lg:text-[40px]">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
+            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-h2 text-white">
               Así se ve nuestra metodología{" "}
               <span className="text-lavender-2">aplicada a un proyecto real.</span>
             </h2>

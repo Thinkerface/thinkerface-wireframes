@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -23,9 +24,11 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-container items-center justify-between px-8 py-[18px]">
-        <Link href="/" className="text-[21px] font-extrabold tracking-tight text-navy">
-          Thinker<span className="text-lavender-deep">face</span>
+      <div className="mx-auto flex max-w-container items-center justify-between px-8 lg:px-20 py-[18px]">
+        <Link href="/" className="flex items-center" aria-label="Thinkerface">
+          {/* Logo real de marca. 234px de alto original — se escala a 28px
+              (h-7), muy por encima del mínimo de 20px del manual. */}
+          <Image src="/logo.png" alt="Thinkerface" width={1662} height={234} className="h-7 w-auto" priority />
         </Link>
 
         <nav className="hidden md:block" aria-label="Navegación principal">

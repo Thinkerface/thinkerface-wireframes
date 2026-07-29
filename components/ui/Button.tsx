@@ -22,23 +22,34 @@ export interface ButtonProps {
   children: ReactNode;
 }
 
-const base = "inline-flex items-center gap-2 font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none";
+const base =
+  "inline-flex items-center gap-2 font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
 
+/**
+ * Magenta (--color-primary) es el color de interacción de la marca: si
+ * un elemento se puede clickear, tiene magenta en algún estado. Por eso
+ * primary y secondary comparten ese color en vez de tener una versión
+ * "navy" y otra "magenta" — la única diferencia entre variantes es
+ * sólido vs. contorno, no el color.
+ *
+ * `onDark` ya no cambia el color de fondo/borde (magenta funciona igual
+ * de bien sobre blanco o sobre navy) — sólo ajusta el ring de foco para
+ * que sea visible en ambos fondos.
+ */
 const variantStyles: Record<ButtonVariant, { normal: string; dark: string }> = {
   primary: {
     normal:
-      "rounded-pill bg-navy px-[30px] py-[14px] text-[15px] text-white hover:bg-navy-light hover:-translate-y-px",
-    dark: "rounded-pill bg-white px-[30px] py-[14px] text-[15px] text-navy hover:bg-lavender-2",
+      "rounded-pill bg-primary px-[30px] py-[14px] text-[15px] text-white hover:bg-primary-dark hover:-translate-y-px active:translate-y-0 active:bg-primary-dark focus-visible:ring-primary focus-visible:ring-offset-white",
+    dark: "rounded-pill bg-primary px-[30px] py-[14px] text-[15px] text-white hover:bg-primary-dark hover:-translate-y-px active:translate-y-0 active:bg-primary-dark focus-visible:ring-white focus-visible:ring-offset-navy",
   },
   secondary: {
     normal:
-      "rounded-pill border-[1.5px] border-navy bg-transparent px-[30px] py-[14px] text-[15px] text-navy hover:bg-navy hover:text-white",
-    dark:
-      "rounded-pill border-[1.5px] border-white/50 bg-transparent px-[30px] py-[14px] text-[15px] text-white hover:border-white hover:bg-white hover:text-navy",
+      "rounded-pill border-[1.5px] border-primary bg-transparent px-[30px] py-[14px] text-[15px] text-primary hover:bg-lavender-2 active:bg-lavender-2 focus-visible:ring-primary focus-visible:ring-offset-white",
+    dark: "rounded-pill border-[1.5px] border-white bg-transparent px-[30px] py-[14px] text-[15px] text-white hover:bg-white/10 active:bg-white/15 focus-visible:ring-white focus-visible:ring-offset-navy",
   },
   text: {
-    normal: "group gap-1.5 p-0 text-[15px] text-navy hover:text-navy-light",
-    dark: "group gap-1.5 p-0 text-[15px] text-white hover:text-lavender-2",
+    normal: "group gap-1.5 p-0 text-[15px] text-primary hover:text-primary-dark focus-visible:ring-primary focus-visible:ring-offset-white",
+    dark: "group gap-1.5 p-0 text-[15px] text-white hover:text-lavender-2 focus-visible:ring-white focus-visible:ring-offset-navy",
   },
 };
 

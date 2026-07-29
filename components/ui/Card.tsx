@@ -89,7 +89,7 @@ export default function Card({
             {icon}
           </div>
         )}
-        <h3 className="mb-2.5 text-lg font-extrabold text-navy">{title}</h3>
+        <h3 className="mb-2.5 text-h6 text-navy">{title}</h3>
         {contrast ? (
           <div>
             {contrast.negate && (
@@ -100,7 +100,7 @@ export default function Card({
             <span className="block text-[15.5px] font-bold leading-snug text-navy">{contrast.affirm}</span>
           </div>
         ) : (
-          description && <p className="text-sm leading-relaxed text-muted">{description}</p>
+          description && <p className="text-body3 text-muted">{description}</p>
         )}
         {footer && <div className="mt-4">{footer}</div>}
       </div>

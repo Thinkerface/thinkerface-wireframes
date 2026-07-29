@@ -8,6 +8,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        primary: {
+  DEFAULT: "var(--color-primary)",
+  dark: "var(--color-primary-dark)",
+},
+accentYellow: "var(--color-yellow)",
+accentRed: "var(--color-red)",
+accentBlue: "var(--color-blue)",
         navy: {
           DEFAULT: "var(--navy)",
           light: "var(--navy-light)",
@@ -30,7 +37,22 @@ const config: Config = {
         container: "var(--container)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+  sans: ["var(--font-body)", "system-ui", "sans-serif"],
+  display: ["var(--font-display)", "system-ui", "sans-serif"],
+  body: ["var(--font-body)", "system-ui", "sans-serif"],
+},
+      fontSize: {
+        h1: ["60px", { lineHeight: "1.1", fontWeight: "700" }],
+        h2: ["48px", { lineHeight: "1.15", fontWeight: "700" }],
+        h3: ["36px", { lineHeight: "1.2", fontWeight: "700" }],
+        h4: ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+        h5: ["20px", { lineHeight: "1.35", fontWeight: "600" }],
+        h6: ["18px", { lineHeight: "1.4", fontWeight: "600" }],
+        body1: ["20px", { lineHeight: "1.6", fontWeight: "400" }],
+        body2: ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+        body3: ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+        quote: ["36px", { lineHeight: "1.35", fontWeight: "600" }],
+        caption: ["18px", { lineHeight: "1.4", fontWeight: "500" }],
       },
     },
   },

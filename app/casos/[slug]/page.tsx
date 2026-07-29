@@ -7,16 +7,33 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 
 // --- Contenido de placeholder tal cual el wireframe aprobado -------------
-// El wireframe de esta página solo desarrolló un caso completo (Aura
-// Bank) — las otras 5 tarjetas de /casos son teasers sin detalle propio
-// todavía. Por eso solo "aura-bank" tiene datos completos acá; cualquier
-// otro slug (vitalis-salud, nortem-retail...) devuelve 404 hasta que
-// tengan su propio contenido. Cuando eso pase, esto se mueve a
-// data/cases.ts para que /casos y esta página lean del mismo lugar.
+// El wireframe solo desarrolló un caso completo a mano (Aura Bank). Antes,
+// cualquier otro slug (vitalis-salud, nortem-retail...) devolvía 404 real
+// porque no tenía datos propios. Ahora generamos contenido de VISTA PREVIA
+// para los otros 5 a partir de lo poco que sí tenemos (industria,
+// descripción corta, métrica de impacto) — así la página nunca rompe, y
+// se marca visiblemente como preview para que nadie lo confunda con
+// contenido real. Cuando exista el caso real, se reemplaza acá mismo o
+// se mueve todo a data/cases.ts.
 
-const auraBankCase = {
+interface CaseStudy {
+  slug: string;
+  client: string;
+  industry: string;
+  category: string;
+  summary: string;
+  facts: { cliente: string; industria: string; servicios: string; duracion: string };
+  reto: { title: string; paragraphs: string[] };
+  experiencia: { title: string; items: string[] };
+  impacto: { value: string; label: string }[];
+  quote: { text: string; attribution: string };
+  isPreview: boolean;
+}
+
+const auraBankCase: CaseStudy = {
   slug: "aura-bank",
   client: "Aura Bank",
+  industry: "Banca digital",
   category: "Customer Experience · Banca digital",
   summary:
     "Cómo convertimos una experiencia bancaria fría y transaccional en una relación cercana que los clientes recuerdan y recomiendan.",
@@ -53,27 +70,71 @@ const auraBankCase = {
     text: "La confianza no se construye con más funciones. Se construye con menos fricción y más humanidad en cada momento.",
     attribution: "Equipo de Experiencia, Aura Bank",
   },
+  isPreview: false,
 };
 
-// Casos relacionados: mismo teaser que ya se usa en /casos. Vive
-// duplicado acá a propósito, igual que en el wireframe HTML original —
-// centralizarlo en data/cases.ts queda para cuando se resuelva el punto
-// anterior.
-const relatedCases = [
-  { slug: "vitalis-salud", client: "Vitalis Salud", industry: "Salud", description: "Rediseñamos el recorrido de pacientes para reducir la ansiedad antes de cada cita." },
-  { slug: "nortem-retail", client: "Nortem Retail", industry: "Retail", description: "Conectamos la experiencia física y digital en más de 60 tiendas." },
-  { slug: "confia-seguros", client: "Confía Seguros", industry: "Seguros", description: "Simplificamos el proceso de reclamos más temido por los usuarios." },
+// Lo mínimo que ya existe de los otros 5 casos (mismo contenido que usa
+// /casos). A partir de esto se genera el preview de cada uno.
+const otherCasesBase = [
+  { slug: "vitalis-salud", client: "Vitalis Salud", industry: "Salud", description: "Rediseñamos el recorrido de pacientes para reducir la ansiedad antes de cada cita.", impactValue: "+40%", impactLabel: "satisfacción de pacientes" },
+  { slug: "nortem-retail", client: "Nortem Retail", industry: "Retail", description: "Conectamos la experiencia física y digital en más de 60 tiendas.", impactValue: "+18%", impactLabel: "ticket promedio" },
+  { slug: "confia-seguros", client: "Confía Seguros", industry: "Seguros", description: "Simplificamos el proceso de reclamos más temido por los usuarios.", impactValue: "-55%", impactLabel: "tiempo de reclamo" },
+  { slug: "andes-university", client: "Andes University", industry: "Educación", description: "Diseñamos la experiencia de bienvenida para nuevos estudiantes.", impactValue: "+30%", impactLabel: "engagement" },
+  { slug: "lumina-tech", client: "Lúmina Tech", industry: "Tecnología", description: "Transformamos un producto B2B complejo en una experiencia intuitiva.", impactValue: "+25%", impactLabel: "adopción" },
 ];
 
-function getCase(slug: string) {
-  return slug === auraBankCase.slug ? auraBankCase : undefined;
+function buildPreviewCase(base: (typeof otherCasesBase)[number]): CaseStudy {
+  return {
+    slug: base.slug,
+    client: base.client,
+    industry: base.industry,
+    category: `Customer Experience · ${base.industry}`,
+    summary: base.description,
+    facts: {
+      cliente: base.client,
+      industria: base.industry,
+      servicios: "CX · UX/UI · Research",
+      duracion: "Por confirmar",
+    },
+    reto: {
+      title: `El reto de ${base.client}`,
+      paragraphs: [
+        base.description,
+        "Este es contenido de vista previa: el reto completo, las decisiones de diseño y los aprendizajes específicos de este proyecto se van a documentar acá cuando el caso esté cerrado.",
+      ],
+    },
+    experiencia: {
+      title: "Cómo lo estamos abordando",
+      items: [
+        "Investigamos el comportamiento real de las personas involucradas.",
+        "Mapeamos los momentos clave del recorrido.",
+        "Diseñamos e implementamos la solución junto al equipo del cliente.",
+        "Medimos el impacto y ajustamos con base en resultados reales.",
+      ],
+    },
+    impacto: [
+      { value: base.impactValue, label: base.impactLabel },
+      { value: "—", label: "Dato pendiente" },
+      { value: "—", label: "Dato pendiente" },
+    ],
+    quote: {
+      text: "El testimonio completo de este proyecto se suma cuando el caso esté documentado en detalle.",
+      attribution: `Equipo de ${base.client}`,
+    },
+    isPreview: true,
+  };
 }
 
-// Pre-renderiza el único caso con contenido real. Los demás slugs se
-// siguen resolviendo en runtime (Next no bloquea dynamicParams) y caen
-// en notFound() más abajo hasta que tengan datos.
+const allCases: CaseStudy[] = [auraBankCase, ...otherCasesBase.map(buildPreviewCase)];
+
+function getCase(slug: string) {
+  return allCases.find((item) => item.slug === slug);
+}
+
+// Ahora los 6 casos se pre-renderizan — ya ninguno depende de resolverse
+// en runtime ni cae en notFound() por falta de datos.
 export function generateStaticParams() {
-  return [{ slug: auraBankCase.slug }];
+  return allCases.map((item) => ({ slug: item.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
@@ -94,7 +155,13 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
     <>
       <Header />
 
-      <div className="mx-auto max-w-container px-8 pt-5 text-[13.5px] text-muted">
+      {caseStudy.isPreview && (
+        <div className="border-b border-yellow-300 bg-yellow-50 px-8 py-2.5 text-center text-[13px] font-semibold text-navy-soft">
+          Vista previa — este caso todavía no tiene contenido real cargado. Los datos de abajo son de ejemplo.
+        </div>
+      )}
+
+      <div className="mx-auto max-w-container px-8 lg:px-20 pt-5 text-[13.5px] text-muted">
         <Link href="/casos" className="font-semibold hover:text-navy">
           Casos
         </Link>
@@ -103,18 +170,18 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
       </div>
 
       {/* ===================== CASE HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#EFEDFA] pb-14 pt-7">
+      <section className="relative overflow-hidden bg-gradient-to-br from-lavender-1 via-lavender-2 to-[#FFF3FA] pb-14 pt-7">
         <div className="pointer-events-none absolute -right-36 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.55),transparent_70%)]" />
 
-        <div className="relative z-10 mx-auto max-w-container px-8">
+        <div className="relative z-10 mx-auto max-w-container px-8 lg:px-20">
           <div className="max-w-[760px]">
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               {caseStudy.category}
             </span>
-            <h1 className="mb-4 text-[30px] font-extrabold leading-[1.2] tracking-tight text-navy sm:text-[38px] lg:text-[46px]">
+            <h1 className="mb-4 text-h1 text-navy">
               {caseStudy.client}
             </h1>
-            <p className="mb-7 max-w-[600px] text-[17px] leading-relaxed text-navy-soft">{caseStudy.summary}</p>
+            <p className="mb-7 max-w-[600px] text-body2 text-navy-soft">{caseStudy.summary}</p>
 
             <div className="flex flex-wrap gap-9">
               <div>
@@ -137,9 +204,15 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-2 max-w-container px-8">
-          <div className="relative flex h-[220px] items-center justify-center overflow-hidden rounded-[24px] bg-gradient-to-br from-navy-soft to-navy lg:h-[420px]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(143,134,217,.4),transparent_45%),radial-gradient(circle_at_80%_85%,rgba(255,255,255,.12),transparent_50%)]" />
+        <div className="relative z-10 mx-auto mt-2 max-w-container px-8 lg:px-20">
+          <div className="relative flex h-[220px] items-center justify-center overflow-hidden rounded-[24px] lg:h-[420px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://picsum.photos/seed/${caseStudy.slug}-cover/1200/700`}
+              alt={`${caseStudy.client} — portada del caso`}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-navy/50" />
             <div className="relative z-10 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/[0.14]">
               <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-[30px] w-[30px]">
                 <circle cx="12" cy="8" r="4" />
@@ -154,11 +227,11 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
       <section className="py-24">
         <div className="mx-auto max-w-[760px] px-8">
           <span className="mb-4 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">El reto</span>
-          <h2 className="mb-5 text-[24px] font-extrabold leading-snug text-navy sm:text-[28px] lg:text-[32px]">
+          <h2 className="mb-5 text-h2 text-navy">
             {caseStudy.reto.title}
           </h2>
           {caseStudy.reto.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="mb-3.5 text-[17px] leading-relaxed text-muted">
+            <p key={paragraph} className="mb-3.5 text-body2 text-muted">
               {paragraph}
             </p>
           ))}
@@ -167,13 +240,20 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
 
       {/* ===================== LA EXPERIENCIA DISEÑADA ===================== */}
       <section className="bg-graybg py-24">
-        <div className="mx-auto grid max-w-container gap-16 px-8 lg:grid-cols-2 lg:items-center">
-          <div className="order-first h-[280px] rounded-[24px] bg-gradient-to-br from-lavender-1 to-lavender-deep lg:order-none lg:h-[360px]" />
+        <div className="mx-auto grid max-w-container gap-16 px-8 lg:px-20 lg:grid-cols-2 lg:items-center">
+          <div className="order-first h-[280px] overflow-hidden rounded-[24px] lg:order-none lg:h-[360px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://picsum.photos/seed/${caseStudy.slug}-experiencia/700/560`}
+              alt={`${caseStudy.client} — la experiencia diseñada`}
+              className="h-full w-full object-cover"
+            />
+          </div>
           <div>
             <span className="mb-4 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">
               La experiencia diseñada
             </span>
-            <h2 className="mb-[18px] text-[24px] font-extrabold leading-snug text-navy sm:text-[28px] lg:text-[30px]">
+            <h2 className="mb-[18px] text-h2 text-navy">
               {caseStudy.experiencia.title}
             </h2>
             <ul>
@@ -197,12 +277,12 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
 
       {/* ===================== EL IMPACTO ===================== */}
       <section className="bg-gradient-to-br from-navy to-navy-light py-24 text-white">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mx-auto mb-12 max-w-[600px] text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-lavender-2">
               El impacto
             </span>
-            <h2 className="text-[24px] font-extrabold sm:text-[28px] lg:text-[32px]">Resultados que se sintieron rápido</h2>
+            <h2 className="text-h2">Resultados que se sintieron rápido</h2>
           </div>
           <div className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
             {caseStudy.impacto.map((item) => (
@@ -222,7 +302,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
             Lo que aprendimos
           </span>
           <div className="mb-2 text-[64px] font-extrabold leading-none text-lavender-2">&ldquo;</div>
-          <blockquote className="mb-[22px] text-[22px] font-extrabold leading-snug text-navy sm:text-[26px] lg:text-[30px]">
+          <blockquote className="mb-[22px] text-quote text-navy">
             {caseStudy.quote.text}
           </blockquote>
           <p className="text-[14.5px] font-semibold text-muted">{caseStudy.quote.attribution}</p>
@@ -231,25 +311,26 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
 
       {/* ===================== GALERÍA ===================== */}
       <section className="bg-graybg py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mb-10 text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">Galería</span>
-            <h2 className="text-[24px] font-extrabold text-navy sm:text-[28px] lg:text-[32px]">El proyecto en detalle</h2>
+            <h2 className="text-h2 text-navy">El proyecto en detalle</h2>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
             {[
-              { dark: false, icon: <><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M9 8h6M9 12h6" /></> },
-              { dark: true, icon: <><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></> },
-              { dark: true, icon: <><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></> },
-              { dark: false, icon: <path d="M4 19V5a2 2 0 0 1 2-2h10l4 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" /> },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className={`relative flex h-[260px] items-end overflow-hidden rounded-[18px] p-4 ${
-                  item.dark ? "bg-gradient-to-br from-navy-soft to-navy" : "bg-gradient-to-br from-lavender-1 to-lavender-deep"
-                }`}
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,.3),transparent_45%)]" />
+              { seed: "flujo", icon: <><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M9 8h6M9 12h6" /></> },
+              { seed: "resultados", icon: <><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></> },
+              { seed: "research", icon: <><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></> },
+              { seed: "sistema", icon: <path d="M4 19V5a2 2 0 0 1 2-2h10l4 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" /> },
+            ].map((item) => (
+              <div key={item.seed} className="relative flex h-[260px] items-end overflow-hidden rounded-[18px] p-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://picsum.photos/seed/${caseStudy.slug}-${item.seed}/700/520`}
+                  alt={`${caseStudy.client} — ${item.seed}`}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-navy/35" />
                 <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/[0.22]">
                   <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
                     {item.icon}
@@ -263,34 +344,37 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ sl
 
       {/* ===================== MÁS CASOS ===================== */}
       <section className="py-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="mb-10 text-center">
             <span className="mb-3.5 block text-xs font-bold uppercase tracking-[0.12em] text-navy-soft">Más casos</span>
-            <h2 className="text-[24px] font-extrabold text-navy sm:text-[28px] lg:text-[32px]">
+            <h2 className="text-h2 text-navy">
               Otras experiencias que hemos diseñado
             </h2>
           </div>
           <div className="grid gap-6 sm:grid-cols-3">
-            {relatedCases.map((related) => (
-              <Card
-                key={related.slug}
-                href={`/casos/${related.slug}`}
-                image={{ alt: `${related.client} — ${related.industry}` }}
-                tag={related.industry}
-                title={related.client}
-                description={related.description}
-              />
-            ))}
+            {allCases
+              .filter((item) => item.slug !== caseStudy.slug)
+              .slice(0, 3)
+              .map((related) => (
+                <Card
+                  key={related.slug}
+                  href={`/casos/${related.slug}`}
+                  image={{ src: `https://picsum.photos/seed/${related.slug}/800/600`, alt: `${related.client} — ${related.industry}` }}
+                  tag={related.industry}
+                  title={related.client}
+                  description={related.summary}
+                />
+              ))}
           </div>
         </div>
       </section>
 
       {/* ===================== CTA FINAL ===================== */}
       <section className="pb-24">
-        <div className="mx-auto max-w-container px-8">
+        <div className="mx-auto max-w-container px-8 lg:px-20">
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-navy to-navy-light px-8 py-16 text-center sm:px-12 lg:py-20">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(143,134,217,.35),transparent_70%)]" />
-            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-[26px] font-extrabold leading-snug text-white sm:text-[32px] lg:text-[40px]">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,77,193,.35),transparent_70%)]" />
+            <h2 className="relative z-10 mx-auto mb-4 max-w-[680px] text-h2 text-white">
               ¿Quieres resultados <span className="text-lavender-2">como estos?</span>
             </h2>
             <p className="relative z-10 mx-auto mb-9 max-w-[480px] text-[16.5px] text-white/70">
