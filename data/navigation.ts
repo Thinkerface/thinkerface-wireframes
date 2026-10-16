@@ -4,20 +4,14 @@ export interface NavItem {
 }
 
 /**
- * Fuente única de la navegación principal (6 links: Home, Somos,
- * Metodología, Servicios, Casos, Contacto). El detalle de caso de
- * éxito no tiene link propio en el nav — se llega a él desde el
- * listado de Casos.
- *
- * El Header la consume directo. El Footer reutiliza los mismos href
- * para su columna "Firma" (filtrando Home y Contacto), así evitamos
- * mantener el listado de rutas escrito dos veces.
+ * Navegación de la rama "home-onepage": el sitio es una sola página y
+ * cada link lleva a una sección del Home por ancla. Header y Footer
+ * leen de acá para no repetir el mapa del sitio.
  */
 export const mainNav: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Somos", href: "/somos" },
-  { label: "Metodología", href: "/metodologia" },
-  { label: "Servicios", href: "/servicios" },
-  { label: "Casos", href: "/casos" },
-  { label: "Contacto", href: "/contacto" },
+  { label: "Somos", href: "/#somos" },
+  { label: "Servicios", href: "/#servicios" },
+  { label: "Casos", href: "/#casos" },
+  { label: "Metodología", href: "/#metodologia" },
+  { label: "Contacto", href: "/#contacto" },
 ];

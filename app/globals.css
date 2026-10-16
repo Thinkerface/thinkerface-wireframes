@@ -1,25 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
-/* Tokens del sistema de diseño — mismos valores usados en los wireframes hi-fi.
-   Viven como variables CSS (y no solo dentro de tailwind.config) para que
-   cualquier CSS plano futuro (por ejemplo estilos de terceros) pueda leerlos también. */
 :root {
-  --navy: #101b3d;
-  --navy-light: #1b2a56;
-  --navy-soft: #2a3a6b;
-  --lavender-1: #dedaf5;
-  --lavender-2: #c6c2ec;
-  --lavender-deep: #8f86d9;
-  --gray-bg: #f2f2f5;
-  --text-gray: #6e6e78;
-  --border: #e6e6ea;
+  /* Neutros — coinciden exactamente con el manual de marca (Brand Guidelines v1.0) */
+  --navy: #282828;       /* = HEX 282828 del manual */
+  --navy-light: #3a3a3a; /* variante de hover, no está en el manual — uso tonal libre */
+  --navy-soft: #5f5e5a;  /* variante de texto secundario, no está en el manual — uso tonal libre */
+  --gray-bg: #F8F8F8;    /* = HEX F8F8F8 del manual */
+  --text-gray: #6b6b6b;
+  --border: #D9D9D9;     /* = HEX D9D9D9 del manual */
   --radius-card: 16px;
   --radius-pill: 999px;
-  --container: 1180px;
+  --container: 85%;
+
+  /* Color de marca — antes estos tokens usaban tonos lavanda inventados
+     en el wireframe. Ahora apuntan a los colores reales del manual:
+     el rosa "Neonkind" es el protagonista visual de la marca. */
+  --lavender-1: #E4E6FD;   /* = HEX E4E6FD del manual (secundario real) */
+  --lavender-2: #FFD6EC;   /* tint claro de Neonkind — reemplaza el lavanda inventado CBCDFA */
+  --lavender-deep: #FF4DC1; /* = Neonkind, HEX FF4DC1 del manual — reemplaza el lavanda inventado 8E89F0 */
+
+  --color-primary: #FF4DC1; /* Neonkind — mismo valor que lavender-deep, token explícito */
+  --color-primary-dark: #E63BAD; /* hover/active del botón primario — Neonkind oscurecido ~10% */
+  --color-yellow: #FBFF53;  /* = HEX FBFF53 del manual */
+  --color-red: #FF504E;     /* = HEX FF504E del manual */
+  --color-blue: #3190FF;    /* = HEX 3190FF del manual */
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Hanken Grotesk', sans-serif;
 }
 
 body {
   color: var(--navy);
   background: #ffffff;
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+}
+
+/* "Títulos principales" = H1 (el título de página / hero). H2-H4 llevan
+   la misma tipografía display pero en su capitalización normal, ya que
+   el pedido de mayúsculas se refería a los títulos principales, no a
+   cada subtítulo de sección. Si también querés H2 en mayúsculas, es un
+   cambio de una línea acá. */
+h1 {
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+/* Ahora también H2 en mayúsculas, según lo pedido. */
+h2 {
+  text-transform: uppercase;
+}
+
+/* El margen lateral en desktop ahora lo da --container: 85% (el
+   contenedor mismo es más angosto que el viewport), así que el padding
+   extra que agregábamos con lg:px-20 sobra y se anula acá. */
+@media (min-width: 64rem) {
+  .lg\:px-20 {
+    padding-inline: calc(var(--spacing) * 0);
+  }
+}
+
+/* Animación de la palabra rotativa del hero de Home (RotatingWord.tsx). */
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes word-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+
+.animate-word-in {
+  animation: word-in 0.4s ease forwards;
+}
+
+.animate-word-out {
+  animation: word-out 0.4s ease forwards;
+}
+/* Anclas del one-page: que el header sticky no tape el título de cada sección. */
+[id] {
+  scroll-margin-top: 5rem;
 }

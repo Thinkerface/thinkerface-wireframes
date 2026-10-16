@@ -4,12 +4,10 @@ import { useState } from "react";
 import Button from "@/components/ui/Button";
 
 const serviceOptions = [
-  "Brand Storytelling",
+  "Consultoría",
+  "Diseño UX",
   "Customer Experience Design",
-  "UX/UI Design",
-  "Service Design",
   "User Research",
-  "Estrategia de Contenidos",
   "Aún no lo sé",
 ];
 
@@ -52,7 +50,7 @@ export default function ContactForm() {
 
   return (
     <div className="rounded-[24px] border border-border bg-white p-8 shadow-[0_30px_60px_-36px_rgba(16,27,61,0.16)] sm:p-11">
-      <h2 className="mb-1.5 text-[22px] font-extrabold text-navy">Cuéntanos sobre tu proyecto</h2>
+      <h2 className="mb-1.5 text-h4 text-navy">Cuéntanos sobre tu proyecto</h2>
       <p className="mb-7 text-[14.5px] text-muted">Respondemos todos los mensajes en menos de 24 horas hábiles.</p>
 
       <form onSubmit={handleSubmit}>

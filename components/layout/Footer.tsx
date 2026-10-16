@@ -1,11 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { mainNav } from "@/data/navigation";
-
-// Etiquetas del footer que difieren del label corto del nav principal
-// (p. ej. "Somos" en el header, "Somos Thinkerface" en el footer).
-const footerLabelOverrides: Record<string, string> = {
-  "/somos": "Somos Thinkerface",
-};
 
 const socialLinks = [
   {
@@ -37,17 +32,15 @@ const socialLinks = [
  * mapa del sitio en dos componentes distintos.
  */
 export default function Footer() {
-  const firmaLinks = mainNav.filter((item) => item.href !== "/" && item.href !== "/contacto");
+  const firmaLinks = mainNav.filter((item) => item.href !== "/#contacto");
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-navy pt-16 text-white/70">
-      <div className="mx-auto max-w-container px-8">
+      <div className="mx-auto max-w-container px-8 lg:px-20">
         <div className="grid gap-12 pb-14 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>
-            <div className="mb-3.5 text-[21px] font-extrabold text-white">
-              Thinker<span className="text-lavender-2">face</span>
-            </div>
+            <Image src="/logo-white.png" alt="Thinkerface" width={1662} height={234} className="mb-3.5 h-7 w-auto" />
             <p className="mb-6 max-w-[300px] text-[14.5px] leading-relaxed text-white/60">
               Convertimos el Brand Storytelling en experiencias que las personas viven, recuerdan y comparten.
             </p>
@@ -89,7 +82,7 @@ export default function Footer() {
               {firmaLinks.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-[14.5px] text-white/70 transition-colors hover:text-white">
-                    {footerLabelOverrides[item.href] ?? item.label}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -105,7 +98,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link href="/contacto" className="text-[14.5px] text-white/70 hover:text-white">
+                <Link href="/#contacto" className="text-[14.5px] text-white/70 hover:text-white">
                   Comenzar un proyecto
                 </Link>
               </li>
